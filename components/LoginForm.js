@@ -4,11 +4,16 @@ import Cookies from "js-cookie";
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
 
   const router = useRouter();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+  };
+
+  const handleUsername = (e) => {
+    setUsername(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
@@ -17,7 +22,7 @@ const LoginForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    Cookies.set("userDetails", { email, password });
+    Cookies.set("userDetails", JSON.stringify({ username, password }));
     router.push("/home");
   };
 
@@ -25,22 +30,22 @@ const LoginForm = () => {
     <form className="max-w-md mx-auto mt-32" onSubmit={handleSubmit}>
       <div className="mb-4">
         <label
-          htmlFor="email"
+          htmlFor="username"
           className="block text-gray-600 text-sm font-semibold mb-2"
         >
-          Email
+          Username
         </label>
         <input
-          type="email"
-          id="email"
-          name="email"
-          value={email}
-          onChange={handleEmailChange}
+          type="username"
+          id="username"
+          name="username"
+          value={username}
+          onChange={handleUsername}
           className={`w-full p-2 border
 						 border-gray-300
 					 rounded-md bg-gray-200`}
           required
-          placeholder="Enter your email"
+          placeholder="Enter your username"
         />
       </div>
       <div className="mb-4">
