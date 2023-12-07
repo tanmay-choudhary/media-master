@@ -1,13 +1,37 @@
 import Card from "@/components/Card";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import Cookies from "js-cookie";
 function Index() {
   const [cardData, setCardData] = useState([]);
+  const [cardData2, setCardData2] = useState([]);
   const [thumbnailURL, setThumbnailURL] = useState("");
   const [title, setTitle] = useState("");
   const [videoURL, setVideoURL] = useState("");
+  const userCookie = Cookies.get("userDetails");
+  const user = userCookie ? JSON.parse(userCookie) : null;
   ///console.log(cardData);
+  useEffect(() => {
+    // Fetch card data from localhost:3001/videos
+    async function getData(id) {
+      await fetch(`http://localhost:3001/last-10-viewed-videos/${id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setCardData2(data);
+        })
+        .catch((error) => console.error("Error fetching data:", error));
+    }
+    if (user.username) {
+      console.log(user.username);
+      if (user.username == "user1") {
+        getData("1");
+      } else {
+        getData("2");
+      }
+      //getData(user.user_id);
+    }
+  }, []);
   useEffect(() => {
     // Fetch card data from localhost:3001/videos
     async function getData() {
@@ -61,6 +85,15 @@ function Index() {
     <>
       <div className="p-8">
         <h1 className="text-2xl font-semibold "> Your Viewed History</h1>
+        <main className=" p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-4 gap-4">
+          {cardData2.map((card) => (
+            <Card
+              id={card.video_id}
+              youtube_url={card.video_url}
+              title={card.title}
+            />
+          ))}
+        </main>
       </div>
       <div className="p-8">
         <div className="flex justify-between items-center ">
