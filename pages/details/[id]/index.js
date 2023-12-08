@@ -14,7 +14,7 @@ const DetailPage = () => {
   useEffect(() => {
     // Fetch card data from localhost:3001/videos
     async function getData() {
-      await fetch(`http://localhost:3001/getVideoById/${id}`)
+      await fetch(`http://65.1.3.130:3001/getVideoById/${id}`)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -28,7 +28,7 @@ const DetailPage = () => {
             user_id = "2";
           }
           const response = await axios.post(
-            "http://localhost:3001/viewed-video",
+            "http://65.1.3.130:3001/viewed-video",
             { video_id: id, user_id: user_id },
             {
               headers: {

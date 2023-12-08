@@ -14,7 +14,7 @@ function Index() {
   useEffect(() => {
     // Fetch card data from localhost:3001/videos
     async function getData(id) {
-      await fetch(`http://localhost:3001/last-10-viewed-videos/${id}`)
+      await fetch(`http://65.1.3.130:3001/last-10-viewed-videos/${id}`)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -35,7 +35,7 @@ function Index() {
   useEffect(() => {
     // Fetch card data from localhost:3001/videos
     async function getData() {
-      await fetch("http://localhost:3001/videos")
+      await fetch("http://65.1.3.130:3001/videos")
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -61,7 +61,7 @@ function Index() {
     console.log(data);
     try {
       const response = await axios.post(
-        "http://localhost:3001/addVideos",
+        "http://65.1.3.130:3001/addVideos",
         data,
         {
           headers: {
